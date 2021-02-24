@@ -13,6 +13,8 @@ const app = express();
 app.use(cors());
 
 const PORT = process.env.PORT || 3009;
+const LOCATION_API_KEY = process.env.LOCATION_API_KEY;
+
 
 //==================Routes===================
 
@@ -24,7 +26,7 @@ app.get('/weather', getWeather);
 function getLocation(req, res){
   //const dataFromTheFile = require('./data/location.json');
   const city = req.query.city;
-  const url = `https://us1.locationiq.com/v1/search.php?key=pk.335101a67094ee435aa5af4c54d3f087&q=${city}&format=json` ;
+  const url = `https://us1.locationiq.com/v1/search.php?key=${LOCATION_API_KEY}&q=${city}&format=json` ;
 
   superagent.get(url).then(stuffcomesback => {
 
