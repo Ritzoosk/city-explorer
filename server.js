@@ -14,6 +14,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3009;
 const LOCATION_API_KEY = process.env.LOCATION_API_KEY;
+const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 
 
 //==================Routes===================
@@ -47,9 +48,12 @@ function Location(stuffcomesback, cityName){
 
 function getWeather(req, res){
 
-  //const cityName = req.query.city; 
+  const city = req.query.search_query; 
 
-  const dataFromTheFile = require('./data/weather.json');
+  const dataFromTheFile = require(url);
+
+  const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${WEATHER_API_KEY}`;
+
   const output = [];
   
   dataFromTheFile.data.forEach(day =>{
