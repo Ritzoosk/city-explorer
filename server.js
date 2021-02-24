@@ -74,5 +74,5 @@ function Weather(data){
 //==================Init====================
 
 
-app.listen(3007, () => console.log('app is up on port http://localhost:3007'))
+app.listen(PORT, () => console.log('app is up '))
 
