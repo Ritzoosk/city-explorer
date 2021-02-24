@@ -29,39 +29,36 @@ function getLocation(req, res){
   const city = req.query.city;
   const url = `https://us1.locationiq.com/v1/search.php?key=${LOCATION_API_KEY}&q=${city}&format=json` ;
 
-  superagent.get(url).then(stuffcomesback => {
-
-  
-
-  const output = new Location(stuffcomesback.body, req.query.city);
+  superagent.get(url).then(userData => {
+  const output = new Location(userData.body, req.query.city);
   res.send(output);
   });
 }
 
 
-function Location(stuffcomesback, cityName){
+function Location(userData, cityName){
   this.search_query = cityName;
-  this.formatted_query = stuffcomesback.body[0].display_name;
-  this.latitude = stuffcomesback.body[0].lat;
-  this.longitude = stuffcomesback.body[0].lon;
+  this.formatted_query = userData[0].display_name;
+  this.latitude = userData[0].lat;
+  this.longitude = userData[0].lon;
 }
 
 function getWeather(req, res){
 
-  const city = req.query.search_query; 
-
-  const dataFromTheFile = require(url);
-
-  const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${WEATHER_API_KEY}`;
-
-  const output = [];
+  superagent.get(`https://api.weatherbit.io/v2.0/forecast/daily?city=${req.query.search_query}&key=${WEATHER_API_KEY}`)
+    .then(weatherData => {
+      const wthrArr = weatherData.body.data.map(wthrOutput);
+      function wthrOutput(day) {
+        return new Weather(day);
+      }
+      res.send(wthrArr);
+    })
+    .catch(errorThatComesBack => {
+      console.log(errorThatComesBack);
+      response.status(500).send('Sorry something went wrong');
+    });
+}//END getWeather
   
-  dataFromTheFile.data.forEach(day =>{
-    output.push(new Weather(day));
-  });
-  res.send(output);
-
-}
 
 
 function Weather(data){
@@ -78,5 +75,22 @@ function Weather(data){
 //==================Init====================
 
 
-app.listen(PORT, () => console.log('app is up '))
+app.listen(PORT, () => console.log(`app is up ${PORT}`))
 
+
+
+// const city = req.query.search_query; 
+
+//   superagent.get(`https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${WEATHER_API_KEY}`)
+//     .then(userData => {
+//       const output = [];
+
+//       const dataFromTheFile = require(url);
+
+  
+//   dataFromTheFile.data.forEach(day =>{
+//     output.push(new Weather(day));
+//   });
+//   res.send(output);
+
+// });
