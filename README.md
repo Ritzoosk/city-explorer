@@ -35,6 +35,7 @@ Finish time: ___8pm__
 
 Actual time needed to complete: __5 hours___
 
+
 Number and name of feature: Update data routes to live API's
 
 Estimate of time needed to complete: __3hr___
@@ -44,3 +45,14 @@ Start time: __5pm___
 Finish time: ___9pm__
 
 Actual time needed to complete: __4 hours___
+
+
+Number and name of feature: SQL update
+
+Estimate of time needed to complete: __3hr___
+
+Start time: __4pm___
+
+Finish time: _____
+
+Actual time needed to complete: _____
