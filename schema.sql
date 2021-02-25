@@ -1,7 +1,7 @@
 -- psql -f cities -d city_explorer_dtb
 
 
--- DROP TABLE cities;
+DROP TABLE cities;
 
 CREATE TABLE cities (
   id SERIAL PRIMARY KEY,

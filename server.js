@@ -30,10 +30,12 @@ app.get('/weather', getWeather);
 
 function getLocation(req, res){
 
-  const sqlQueryStr = 'SELECT * FROM cities WHERE search_query=$1'
+  const sqlQueryStr = 'SELECT * FROM cities WHERE search_query=$1';
   const sqlQueryArr = [req.query.city];
+
   client.query(sqlQueryStr, sqlQueryArr) 
     .then(result => {
+
       if (result.rows.length > 0){
         res.send(result.rows[0])
       } else {
@@ -44,14 +46,8 @@ function getLocation(req, res){
         const output = new Location(userData.body, req.query.city);
         res.send(output);
         });
-
       }
     });
-    
-
-
-
-  
 }
 
 
@@ -99,11 +95,11 @@ function getParks(req, res){
     .then(result => {
       
       const parks = result.body.data.map(singlePark => new Parks(singlePark));
-      console.log(parks);
+      // console.log(parks);
       res.send(parks);
     })
     .catch(errorThatComesBack => {
-      console.log(errorThatComesBack);
+      // console.log(errorThatComesBack);
       response.status(500).send('Sorry something went wrong');
     }); 
 }
