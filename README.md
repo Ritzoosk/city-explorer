@@ -20,7 +20,10 @@ Set up the general server code. Generated needed routes. formatted data correctl
 
 ## Change Log
 
-
+2/24/2021
+- made Postgres DB
+- Made Schema table
+- routed querys to db before API query
 
 
 
@@ -53,6 +56,6 @@ Estimate of time needed to complete: __3hr___
 
 Start time: __4pm___
 
-Finish time: _____
+Finish time: __9:30pm___
 
-Actual time needed to complete: _____
+Actual time needed to complete: __5.5hr___
