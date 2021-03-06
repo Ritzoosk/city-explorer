@@ -30,7 +30,7 @@ app.get('/location', getLocation);
 
 
 function getLocation(req, res){
-
+  console.log("test");
   const sqlQueryStr = 'SELECT * FROM cities WHERE search_query=$1';
   const sqlQueryArr = [req.query.city];
 
@@ -38,17 +38,23 @@ function getLocation(req, res){
     .then(result => {
 
       if (result.rows.length > 0){
+        console.log('fownd it!')
         res.send(result.rows[0])
       } else {
         const city = req.query.city;
         const url = `https://us1.locationiq.com/v1/search.php?key=${LOCATION_API_KEY}&q=${city}&format=json` ;
 
+
         superagent.get(url).then(userData => {
         const output = new Location(userData.body, req.query.city);
+        const sqlLoc = 'INSERT INTO cities (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4)'
+        const locArr = [output.search_query, output.formatted_query, output.latitude, output.longitude];
+        client.query(sqlLoc, locArr);
+        
         res.send(output);
         });
       }
-    });
+    }).catch(err => console.log(err))
 }
 
 
@@ -121,10 +127,6 @@ function Parks(obj){
 app.get('/yelp', getYelp);
 
 function getYelp(req, res){
-  //console.log('in da yelp', req.query);
-  
-  
-  // `https://developer.nps.gov/api/v1/parks?limit=5&start=0&q=${parkCode}&api_key=${PARKS_API_KEY}`
   const url = `https://api.yelp.com/v3/businesses/search?term=restaurant&limit=5&latitude=${req.query.latitude}&longitude=${req.query.longitude}`;
 
   superagent.get(url)
@@ -154,9 +156,9 @@ function Restaurant(data){
 app.get('/movies', getMovie);
 
 function getMovie(req, res){
-  console.log('in da movie');
+  //console.log('in da movie');
   const movieCode = req.query.search_query;
-  console.log(movieCode);
+  //console.log(movieCode);
   
   const url =`https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${movieCode}&page=1&include_adult=false`;
 
@@ -185,10 +187,9 @@ function Movie(data){
 
 //==================Init====================
 
-client.connect()
-.then(() => {
-  app.listen(PORT, () => console.log(`app is up ${PORT}`));
+client.connect().then(() => {
 
+  app.listen(PORT, () => console.log(`up on http://localhost:${PORT}`));
 });
 
 
