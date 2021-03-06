@@ -25,6 +25,8 @@ Set up the general server code. Generated needed routes. formatted data correctl
 - Made Schema table
 - routed querys to db before API query
 
+2/25/2021
+- added yelp and movies
 
 
 
@@ -59,3 +61,16 @@ Start time: __4pm___
 Finish time: __9:30pm___
 
 Actual time needed to complete: __5.5hr___
+
+
+
+Number and name of feature: yelp and movies added
+
+Estimate of time needed to complete: __3hr___
+
+Start time: __4pm___
+
+Finish time: __8:00pm___
+
+Actual time needed to complete: __4hr___
+
